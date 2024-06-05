@@ -25,7 +25,7 @@ try {
 app.get('/test', (req, res) => {
     const id = req.query.id;
 
-    console.log('Executing query: ', query, id);
+    console.log('Executing query: ', req.body, req.query, id);
 
     if (err) {
         console.error('Error executing query', err.stack);
