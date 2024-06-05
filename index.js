@@ -21,9 +21,7 @@ client.connect()
 // Endpoint de prueba
 app.get('/test', (req, res) => {
     const id = req.query.id;
-
     console.log('Executing query: ', req.query, req.params, req.body);
-
     res.json(id);
 });
 
@@ -71,6 +69,22 @@ app.get('/notas', (req, res) => {
         }
     });
 });
+
+
+// Vulnerable a SQL Injection
+app.get('/pacientes', (req, res) => {
+    const nombre = req.query.nombre;
+    const query = `SELECT * FROM Pacientes WHERE nombre = '${nombre}'`;
+  
+    client.query(query, (err, result) => {
+      if (err) {
+        console.error('Error ejecutando la consulta', err.stack);
+        res.status(500).send('Error en el servidor');
+      } else {
+        res.status(200).json(result.rows);
+      }
+    });
+  });
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
