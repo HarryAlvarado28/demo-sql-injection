@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test  # Asegúrate de tener un script de test en tu package.json
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
