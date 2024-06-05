@@ -1,0 +1,54 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # O el branch que prefieras
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'  # O la versión de Node.js que estés utilizando
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test  # Asegúrate de tener un script de test en tu package.json
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'  # O la versión de Node.js que estés utilizando
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy to Azure VM
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.AZURE_VM_HOST }}
+          username: ${{ secrets.AZURE_VM_USERNAME }}
+          key: ${{ secrets.AZURE_VM_SSH_KEY }}
+          port: 22
+          script: |
+            cd /path/to/your/app
+            git pull origin main
+            npm install
+            pm2 restart all

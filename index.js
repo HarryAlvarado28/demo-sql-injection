@@ -16,6 +16,19 @@ const client = new Client({
 
 client.connect();
 
+app.get('/test', (req, res) => {
+    const id = req.query.id;
+
+    console.log('Executing query: ', query, id);
+
+    if (err) {
+        console.error('Error executing query', err.stack);
+        res.status(500).send('Error executing query');
+    } else {
+        res.json(id);
+    }
+});
+
 app.get('/es', (req, res) => {
     const id = req.query.id;
     const query = `SELECT * FROM Estudiantes WHERE id = '${id}'`;
