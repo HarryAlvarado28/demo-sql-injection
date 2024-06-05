@@ -75,7 +75,9 @@ app.get('/notas', (req, res) => {
 app.get('/pacientes', (req, res) => {
     const nombre = req.query.nombre;
     const query = `SELECT * FROM Pacientes WHERE nombre = '${nombre}'`;
-  
+
+    console.log('Executing query:', query);
+
     client.query(query, (err, result) => {
       if (err) {
         console.error('Error ejecutando la consulta', err.stack);
