@@ -4,24 +4,21 @@ const { Client } = require('pg');
 
 const app = express();
 app.use(bodyParser.json());
-const client = new Client();
 
-try {
-    // Configuración de la base de datos
-    const client = new Client({
-        user: 'postgres',
-        host: '172.172.152.57',
-        database: 'postgres',
-        password: 'Pass8Strong_DB@1593',
-        port: 5432,
-    });
+// Configuración de la base de datos
+const client = new Client({
+    user: 'postgres',
+    host: '172.172.152.57',
+    database: 'postgres',
+    password: 'Pass8Strong_DB@1593',
+    port: 5432,
+});
 
-    client.connect();
-    console.log('Connected to database');
-} catch (error) {
-    console.log('Error connecting to database', error);
-}
+client.connect()
+    .then(() => console.log('Connected to database'))
+    .catch(error => console.log('Error connecting to database', error));
 
+// Endpoint de prueba
 app.get('/test', (req, res) => {
     const id = req.query.id;
 
@@ -30,22 +27,18 @@ app.get('/test', (req, res) => {
     res.json(id);
 });
 
-app.get('/es', (req, res) => {
-    const id = req.query.id;
-    const query = `SELECT * FROM Estudiantes WHERE id = '${id}'`;
-
-    console.log('Executing query:', query);
-
-    client.query(query, (err, result) => {
-        if (err) {
-            console.error('Error executing query', err.stack);
-            res.status(500).send('Error executing query');
-        } else {
-            res.json(result.rows);
-        }
-    });
+// Endpoint para probar la conexión a la base de datos
+app.get('/test-db', async (req, res) => {
+    try {
+        const result = await client.query('SELECT NOW()');
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error conectando a la base de datos');
+    }
 });
 
+// Endpoint vulnerable a SQL Injection para estudiantes
 app.get('/estudiantes', (req, res) => {
     const nombre = req.query.nombre;
     const query = `SELECT * FROM Estudiantes WHERE nombre = '${nombre}'`;
@@ -62,6 +55,7 @@ app.get('/estudiantes', (req, res) => {
     });
 });
 
+// Endpoint vulnerable a SQL Injection para notas
 app.get('/notas', (req, res) => {
     const estudiante_id = req.query.estudiante_id;
     const query = `SELECT * FROM Notas WHERE estudiante_id = ${estudiante_id}`;
