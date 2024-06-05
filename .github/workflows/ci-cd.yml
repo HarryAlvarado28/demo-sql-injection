@@ -45,7 +45,6 @@ jobs:
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           port: 22
           script: |
-            git clone https://github.com/HarryAlvarado28/demo-sql-injection.git
             ls -la
             pwd
             cd demo-sql-injection
