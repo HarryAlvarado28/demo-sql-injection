@@ -48,7 +48,7 @@ jobs:
             git clone https://github.com/HarryAlvarado28/demo-sql-injection.git
             ls -la
             pwd
-            cd /demo-sql-injection
+            cd demo-sql-injection
             git pull origin main
             npm install
             pm2 restart all
