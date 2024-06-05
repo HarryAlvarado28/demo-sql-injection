@@ -45,7 +45,8 @@ jobs:
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           port: 22
           script: |
-            cd /path/to/your/app
+            ls -la
+            cd /home/azureuser/demo-sql-injection
             git pull origin main
             npm install
             pm2 restart all
