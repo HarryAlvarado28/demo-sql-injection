@@ -5,6 +5,7 @@ const { Client } = require('pg');
 const app = express();
 app.use(bodyParser.json());
 const client = new Client();
+
 try {
     // Configuración de la base de datos
     const client = new Client({
