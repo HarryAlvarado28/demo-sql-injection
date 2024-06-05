@@ -25,14 +25,9 @@ try {
 app.get('/test', (req, res) => {
     const id = req.query.id;
 
-    console.log('Executing query: ', req.body, req.query, id);
+    console.log('Executing query: ', req.query, req.params, req.body);
 
-    if (err) {
-        console.error('Error executing query', err.stack);
-        res.status(500).send('Error executing query');
-    } else {
-        res.json(id);
-    }
+    res.json(id);
 });
 
 app.get('/es', (req, res) => {
