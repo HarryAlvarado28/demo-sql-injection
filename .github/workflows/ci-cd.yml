@@ -46,7 +46,7 @@ jobs:
           port: 22
           script: |
             ls -la
-            cd /home/azureuser/demo-sql-injection
+            cd /HarryAlvarado28/demo-sql-injection
             git pull origin main
             npm install
             pm2 restart all
