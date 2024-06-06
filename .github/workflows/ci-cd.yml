@@ -52,5 +52,6 @@ jobs:
             npm install
             pm2 restart all
             export DB_USER=${{ secrets.DB_USER }}
+            echo $DB_USER
             export DB_PASS=${{ secrets.DB_PASS }}
 
