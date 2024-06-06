@@ -74,11 +74,11 @@ app.get('/notas', (req, res) => {
 // Vulnerable a SQL Injection
 app.get('/pacientes', (req, res) => {
     const nombre = req.query.nombre;
-    const query = `SELECT * FROM Pacientes WHERE nombre = '${nombre}'`;
+    const query = `SELECT * FROM Pacientes WHERE nombre = $1'`;
 
     console.log('Executing query:', query);
 
-    client.query(query, (err, result) => {
+    client.query(query, [nombre], (err, result) => {
       if (err) {
         console.error('Error ejecutando la consulta', err.stack);
         res.status(500).send('Error en el servidor');
