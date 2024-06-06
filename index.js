@@ -11,7 +11,7 @@ const client = new Client({
     host: '172.172.152.57',
     database: 'postgres',
     password: 'Pass8Strong_DB@1593',
-    port: 5432,
+    port: 9000,
 });
 
 client.connect()
@@ -81,7 +81,7 @@ app.get('/pacientes', (req, res) => {
     client.query(query, [nombre], (err, result) => {
     if (err) {
     console.error('Error ejecutando la consulta', err.stack);
-    res.status(500).send('Error en el servidor');
+    res.status(500).send('Error en el servidor ');
     } else {
     res.status(200).json(result.rows);
     }
