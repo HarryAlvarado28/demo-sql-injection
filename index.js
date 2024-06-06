@@ -20,7 +20,6 @@ client.connect()
 
 // Endpoint de prueba
 app.get('/test', (req, res) => {
-    console.log(`Usuario de la base de datos: ${dbUser}`);
     const id = req.query.id;
     console.log('Executing query: ', req.query, req.params, req.body);
     res.json(id);
@@ -28,7 +27,6 @@ app.get('/test', (req, res) => {
 
 // Endpoint para probar la conexión a la base de datos
 app.get('/test-db', async (req, res) => {
-    console.log(`Usuario de la base de datos: ${dbUser}`);
     try {
         const result = await client.query('SELECT NOW()');
         res.status(200).json(result.rows);
