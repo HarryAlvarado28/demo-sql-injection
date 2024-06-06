@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client } = require('pg');
@@ -7,10 +8,10 @@ app.use(bodyParser.json());
 
 // Configuración de la base de datos
 const client = new Client({
-    user: env.process.DB_USER,
+    user: process.env.DB_USER,
     host: '172.172.152.57',
     database: 'postgres',
-    password: env.process.DB_PASS,
+    password: process.env.DB_PASS,
     port: 5432,
 });
 
