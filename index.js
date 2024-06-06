@@ -6,9 +6,12 @@ const { Client } = require('pg');
 const app = express();
 app.use(bodyParser.json());
 
+const dbUser = process.env.DB_USER;
+console.log(`Usuario de la base de datos: ${dbUser}`);
+
 // Configuración de la base de datos
 const client = new Client({
-    user: process.env.DB_USER,
+    user: dbUser,
     host: '172.172.152.57',
     database: 'postgres',
     password: process.env.DB_PASS,
