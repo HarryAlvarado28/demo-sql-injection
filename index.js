@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client } = require('pg');
@@ -6,17 +5,12 @@ const { Client } = require('pg');
 const app = express();
 app.use(bodyParser.json());
 
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
-console.log(`Usuario de la base de datos: ${dbUser}`);
-console.log(`Contraseña de la base de datos: ${dbPassword}`);
-
 // Configuración de la base de datos
 const client = new Client({
-    user: dbUser,
+    user: 'postgres',
     host: '172.172.152.57',
     database: 'postgres',
-    password: dbPassword,
+    password: 'Pass8Strong_DB@1593',
     port: 5432,
 });
 
