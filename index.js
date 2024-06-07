@@ -8,10 +8,10 @@ app.use(bodyParser.json());
 // Configuración de la base de datos
 const client = new Client({
     user: 'postgres',
-    host: '172.172.152.57',
+    host: '127.0.0.1',
     database: 'postgres',
     password: 'Pass8Strong_DB@1593',
-    port: 9000,
+    port: 5432,
 });
 
 client.connect()
